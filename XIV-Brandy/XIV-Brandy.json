@@ -1,0 +1,12 @@
+{
+  "Author": "GoomiiV2",
+  "Name": "XIV-Brandy",
+  "Punchline": "A short one-liner that shows up in /xlplugins.",
+  "Description": "A description that shows up in /xlplugins. List any major slash-command(s).",
+  "InternalName": "XIV-Brandy",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "mark",
+    "brandy"
+  ]
+}
