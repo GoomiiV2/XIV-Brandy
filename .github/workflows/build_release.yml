@@ -32,7 +32,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: XIV-Brandy.latest
-        path: XIV-Brandy\bin\x64\Release\XIV-Brandy\latest.zip
+        path: XIV-Brandy\bin\x64\Release\XIV-Brandy\latest\
 
     - name: Upload Release
       uses: softprops/action-gh-release@v1
