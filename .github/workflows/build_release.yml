@@ -1,8 +1,10 @@
 name: .NET
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -32,10 +34,4 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: XIV-Brandy.latest
-        path: XIV-Brandy\bin\x64\Release\XIV-Brandy\latest\
-
-    - name: Upload Release
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-          files: XIV-Brandy.latest.zip
+        path: XIV-Brandy\bin\x64\Release\XIV-Brandy\latest.zip

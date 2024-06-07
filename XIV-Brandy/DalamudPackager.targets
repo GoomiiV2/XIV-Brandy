@@ -5,7 +5,7 @@
                 ProjectDir="$(ProjectDir)"
                 OutputPath="$(OutputPath)"
                 AssemblyName="$(AssemblyName)"
-                MakeZip="false"
+                MakeZip="true"
                 Exclude="XIV-Brandy.deps.json;XIV-Brandy.pdb"/>
     </Target>
 </Project>
