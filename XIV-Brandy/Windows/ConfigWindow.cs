@@ -79,7 +79,7 @@ public class ConfigWindow : Window, IDisposable
 
         if (ImGui.Button("Save"))
         {
-            PluginLog.Log("Config changed, saving.");
+            Plugin.PluginLog.Info("Config changed, saving.");
             Configuration.Save();
         }
 
@@ -117,8 +117,8 @@ public class ConfigWindow : Window, IDisposable
     {
         if (info.IconId != 0)
         {
-            var icon = Plugin.TextureProvider.GetIcon(info.IconId);
-            ImGui.Image(icon.ImGuiHandle, new Vector2(32, 32), new Vector2(0, 0), new Vector2(1, 1), ImGui.ColorConvertU32ToFloat4(info.Tint));
+            var icon = Plugin.TextureProvider.GetFromGameIcon(info.IconId);
+            ImGui.Image(icon.GetWrapOrEmpty().ImGuiHandle, new Vector2(32, 32), new Vector2(0, 0), new Vector2(1, 1), ImGui.ColorConvertU32ToFloat4(info.Tint));
             ImGui.SameLine();
         }
 
@@ -132,8 +132,8 @@ public class ConfigWindow : Window, IDisposable
                 }
                 ImGui.SameLine();
                 ImGui.SetCursorPosX(ImGui.GetCursorPosX() - 40);
-                var icon = Plugin.TextureProvider.GetIcon(iconId);
-                ImGui.Image(icon.ImGuiHandle, new Vector2(32, 32));
+                var icon = Plugin.TextureProvider.GetFromGameIcon(iconId);
+                ImGui.Image(icon.GetWrapOrEmpty().ImGuiHandle, new Vector2(32, 32));
             }
 
             ImGui.EndCombo();

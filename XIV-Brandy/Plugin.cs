@@ -19,10 +19,11 @@ namespace Brandy
         public string Name => "Brandy";
         private const string CommandName = "/Brandy";
 
-        private DalamudPluginInterface PluginInterface;
+        private IDalamudPluginInterface PluginInterface;
         private ICommandManager CommandManager;
         private IContextMenu ContextMenu;
         private IGameGui GameGui;
+        public IPluginLog PluginLog;
         public ITextureProvider TextureProvider;
         public Configuration Configuration;
         public WindowSystem WindowSystem = new("Brandy");
@@ -33,11 +34,12 @@ namespace Brandy
         public List<MarkedObject> PendingRemoveMarks = new List<MarkedObject>();
 
         public Plugin(
-            [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
-            [RequiredVersion("1.0")] ICommandManager commandManager,
-            [RequiredVersion("1.0")] IContextMenu contextMenu,
-            [RequiredVersion("1.0")] IGameGui gameGui,
-            [RequiredVersion("1.0")] ITextureProvider textureProvider
+            IDalamudPluginInterface pluginInterface,
+            ICommandManager commandManager,
+            IContextMenu contextMenu,
+            IGameGui gameGui,
+            ITextureProvider textureProvider,
+            IPluginLog pluginLog
         )
         {
             PluginInterface = pluginInterface;
@@ -45,6 +47,7 @@ namespace Brandy
             ContextMenu     = contextMenu;
             GameGui         = gameGui;
             TextureProvider = textureProvider;
+            PluginLog       = pluginLog;
 
             Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
             Configuration.Initialize(PluginInterface);
@@ -64,7 +67,7 @@ namespace Brandy
             ContextMenu.OnMenuOpened += ContextMenuOnOpened;
         }
 
-        private void ContextMenuOnOpened(MenuOpenedArgs args)
+        private void ContextMenuOnOpened(IMenuOpenedArgs args)
         {
             if (args.MenuType == ContextMenuType.Default)
             {
@@ -74,7 +77,7 @@ namespace Brandy
                 var clearMarksItem = new MenuItem()
                 {
                     Name = $"Clear Mark",
-                    OnClicked = (MenuItemClickedArgs onClickedArgs) =>
+                    OnClicked = (IMenuItemClickedArgs onClickedArgs) =>
                     {
                         RemoveMark(target.TargetObject);
                     }
@@ -87,7 +90,7 @@ namespace Brandy
                     var markMenuItem = new MenuItem()
                     {
                         Name = $"Mark - {mark.Name}",
-                        OnClicked = (MenuItemClickedArgs onClickedArgs) =>
+                        OnClicked = (IMenuItemClickedArgs onClickedArgs) =>
                         {
                             MarkObject(target.TargetObject, mark);
                         }
@@ -100,7 +103,7 @@ namespace Brandy
                 {
                     Name      = "Brandy",
                     IsSubmenu = true,
-                    OnClicked = (MenuItemClickedArgs onClickedArgs) =>
+                    OnClicked = (IMenuItemClickedArgs onClickedArgs) =>
                     {
                         onClickedArgs.OpenSubmenu(markTypes);
                     }
@@ -110,11 +113,11 @@ namespace Brandy
             }
         }
 
-        public void MarkObject(GameObject obj, MarkInfo markInfo)
+        public void MarkObject(IGameObject obj, MarkInfo markInfo)
         {
-            if (obj)
+            if (obj.IsValid())
             {
-                if (Marks.Any(x => x.ObjectId == obj.ObjectId))
+                if (Marks.Any(x => x.ObjectId == obj.GameObjectId))
                 {
                     RemoveMark(obj);
                 }
@@ -136,9 +139,9 @@ namespace Brandy
             }
         }
 
-        public void RemoveMark(GameObject obj)
+        public void RemoveMark(IGameObject obj)
         {
-            var mark = Marks.FirstOrDefault(x => x.ObjectId == obj.ObjectId);
+            var mark = Marks.FirstOrDefault(x => x.ObjectId == obj.GameObjectId);
             RemoveMark(mark);
         }
 
@@ -166,7 +169,7 @@ namespace Brandy
             // Check if any marked actors are invalid or changed and remove
             foreach (var mark in Marks)
             {
-                if (!mark.Object.IsValid() || mark.ObjectId != mark.Object.ObjectId)
+                if (mark.ObjectId != mark.Object.GameObjectId)
                 {
                     RemoveMark(mark);
                 }
@@ -183,9 +186,9 @@ namespace Brandy
         {
             foreach (var mark in Marks)
             {
-                if (mark.Object)
+                if (mark.Object != null)
                 {
-                    var icon = TextureProvider.GetIcon(mark.MarkInfo.IconId);
+                    var icon = TextureProvider.GetFromGameIcon(mark.MarkInfo.IconId);
                     var markObjStruct = (FFXIVClientStructs.FFXIV.Client.Game.Object.GameObject*)mark.Object.Address;
                     var markPos = mark.Object.Position + new Vector3(0, 2 * markObjStruct->Height, 0);
 
@@ -194,7 +197,7 @@ namespace Brandy
                         pos.Y -= mark.MarkInfo.VertOffset;
                         var topLeft     = pos - (mark.MarkInfo.HalfSize);
                         var bottomRight = pos + (mark.MarkInfo.HalfSize);
-                        ImGui.GetForegroundDrawList().AddImage(icon.ImGuiHandle, topLeft, bottomRight, new Vector2(0, 0), new Vector2(1, 1), mark.MarkInfo.Tint);
+                        ImGui.GetForegroundDrawList().AddImage(icon.GetWrapOrEmpty().ImGuiHandle, topLeft, bottomRight, new Vector2(0, 0), new Vector2(1, 1), mark.MarkInfo.Tint);
                     }
                 }
             }

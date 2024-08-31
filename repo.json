@@ -3,8 +3,8 @@
       "Author": "GoomiiV2",
       "Name": "XIV-Brandy",
       "InternalName": "XIV-Brandy",
-      "AssemblyVersion": "0.0.0.1",
-      "TestingAssemblyVersion": "0.0.0.1",
+      "AssemblyVersion": "0.0.0.2",
+      "TestingAssemblyVersion": "0.0.0.2",
       "Description": "Custom marks for your party members",
       "ApplicableVersion": "any",
       "RepoUrl": "https://github.com/GoomiiV2/XIV-Brandy",
@@ -12,14 +12,14 @@
         "mark",
         "brandy"
       ],
-      "DalamudApiLevel": 9,
+      "DalamudApiLevel": 10,
       "LoadPriority": 0,
       "Punchline": "Custom marks for your party members",
       "IsHide": "False",
       "IsTestingExclusive": "False",
-      "DownloadLinkInstall": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.1/XIV-Brandy.zip",
-      "DownloadLinkTesting": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.1/XIV-Brandy.zip",
-      "DownloadLinkUpdate": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.1/XIV-Brandy.zip"
+      "DownloadLinkInstall": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.2/XIV-Brandy.zip",
+      "DownloadLinkTesting": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.2/XIV-Brandy.zip",
+      "DownloadLinkUpdate": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.2/XIV-Brandy.zip"
     }
 ]
     
