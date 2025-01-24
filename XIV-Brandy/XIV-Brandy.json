@@ -9,7 +9,8 @@
     "mark",
     "brandy"
   ],
-  "DownloadLinkInstall": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.1/XIV-Brandy.zip",
-  "DownloadLinkTesting": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.1/XIV-Brandy.zip",
-  "DownloadLinkUpdate": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.1/XIV-Brandy.zip"
+  "DalamudApiLevel": 11,
+  "DownloadLinkInstall": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.2/XIV-Brandy.zip",
+  "DownloadLinkTesting": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.2/XIV-Brandy.zip",
+  "DownloadLinkUpdate": "https://github.com/GoomiiV2/XIV-Brandy/releases/download/v0.0.0.2/XIV-Brandy.zip"
 }
