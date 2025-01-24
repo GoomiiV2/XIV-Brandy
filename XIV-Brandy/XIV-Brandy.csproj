@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Authors></Authors>
     <Company></Company>
-    <Version>0.0.0.2</Version>
+    <Version>0.0.0.3</Version>
     <Description> :&gt; </Description>
     <Copyright></Copyright>
     <PackageProjectUrl></PackageProjectUrl>
@@ -25,6 +25,7 @@
     <DalamudLibPath Condition="$([MSBuild]::IsOSPlatform('Linux'))">$(HOME)/.xlcore/dalamud/Hooks/dev/</DalamudLibPath>
     <DalamudLibPath Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(HOME)/Library/Application Support/XIV on Mac/dalamud/Hooks/dev/</DalamudLibPath>
     <DalamudLibPath Condition="$(DALAMUD_HOME) != ''">$(DALAMUD_HOME)/</DalamudLibPath>
+    <FileVersion>0.0.3</FileVersion>
   </PropertyGroup>
 
   <Import Project="$(DalamudLibPath)/targets/Dalamud.Plugin.targets" />
